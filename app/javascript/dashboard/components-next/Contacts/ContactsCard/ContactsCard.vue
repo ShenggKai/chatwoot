@@ -9,7 +9,7 @@ import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 import Flag from 'dashboard/components-next/flag/Flag.vue';
 import countries from 'shared/constants/countries';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
-// import M3cAPI from 'dashboard/utils/m3cAPI.js';
+import { testAPI } from 'dashboard/api/m3c.js';
 
 const props = defineProps({
   id: { type: Number, required: true },
@@ -94,14 +94,12 @@ const handlePhoneIconClick = async () => {
     const { phoneNumber } = contactData.value;
     if (!phoneNumber) return;
 
-    // const response = await M3cAPI.testConnection;
-    // if (response && response.data) {
-    //   // Xử lý dữ liệu từ API nếu cần
-    //   console.log(response.data);
-    // }
+    const response = await testAPI();
+
+    console.log('API response:', response);
   } catch (error) {
     // Xử lý lỗi nếu cần
-    // console.error(error);
+    console.error(error);
   }
 };
 
@@ -137,14 +135,14 @@ const handlePhoneIconClick = async () => {
           </div>
           <div v-if="email" class="w-px h-3 truncate bg-n-slate-6" />
           <span v-if="phoneNumber" class="text-sm truncate text-n-slate-11 flex items-center">
-            {{ phoneNumber }}
             <button
               type="button"
-              class="ml-1 p-1 rounded hover:bg-n-slate-3 transition flex items-center justify-center"
+              class="ml-1 px-2 py-1 rounded hover:bg-n-slate-3 transition flex items-center justify-center gap-1"
               @click="handlePhoneIconClick"
               title="Call 3C"
             >
-              <Icon icon="i-lucide-phone" class="inline-block text-n-slate-10 size-4" />
+              <Icon icon="i-lucide-phone" class="inline-block text-n-slate-10 size-4 align-middle" />
+              <span>{{ phoneNumber }}</span>
             </button>
           </span>
           <div v-if="phoneNumber" class="w-px h-3 truncate bg-n-slate-6" />
