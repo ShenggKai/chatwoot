@@ -382,6 +382,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Thêm API tạo JWT token riêng biệt
+  namespace :api do
+    namespace :v1 do
+      post 'jwt_token', to: 'jwt_tokens#create'
+    end
+  end
+
   # ----------------------------------------------------------------------
   # Routes for platform APIs
   namespace :platform, defaults: { format: 'json' } do
