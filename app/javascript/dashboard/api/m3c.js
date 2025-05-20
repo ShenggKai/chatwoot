@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-export const createJwtToken = ({ ipphone, expired, secret_key }) => {
-  return axios.post('/api/jwt-token', {
-    ipphone,
-    expired,
-    secret_key,
+export const createJwtToken = (ipphone) => {
+  return axios.post('/api/v1/jwt_token', {
+    'ipphone': ipphone,
   });
 };
 

@@ -9,7 +9,7 @@ import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 import Flag from 'dashboard/components-next/flag/Flag.vue';
 import countries from 'shared/constants/countries';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
-import { testAPI } from 'dashboard/api/m3c.js';
+import { createJwtToken } from 'dashboard/api/m3c.js';
 
 const props = defineProps({
   id: { type: Number, required: true },
@@ -94,7 +94,7 @@ const handlePhoneIconClick = async () => {
     const { phoneNumber } = contactData.value;
     if (!phoneNumber) return;
 
-    const response = await testAPI();
+    const response = await createJwtToken(36391_100);
 
     console.log('API response:', response);
   } catch (error) {
