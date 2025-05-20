@@ -9,7 +9,7 @@ import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 import Flag from 'dashboard/components-next/flag/Flag.vue';
 import countries from 'shared/constants/countries';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
-import { createJwtToken } from 'dashboard/api/m3c.js';
+import { createJwtToken, login3C } from 'dashboard/api/m3c.js';
 
 const props = defineProps({
   id: { type: Number, required: true },
@@ -94,9 +94,19 @@ const handlePhoneIconClick = async () => {
     const { phoneNumber } = contactData.value;
     if (!phoneNumber) return;
 
-    const response = await createJwtToken(36391_100);
+    const response = await createJwtToken("36391_100");
+
+    // Gọi API login3C với JWT token
+    if (response && response.data && response.data.token) {
+      const { token } = response.data;
+      const loginResponse = await login3C(null, token);
+      console.log('Login response:', loginResponse);
+    } else {
+      console.error('Failed to create JWT token');
+    }
 
     console.log('API response:', response);
+    console.log('loginResponse:', loginResponse);
   } catch (error) {
     // Xử lý lỗi nếu cần
     console.error(error);
